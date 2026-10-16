@@ -16,3 +16,13 @@ export const cadastrarTurma = async (request, response) => {
         return response.status(500).json({ message: "Erro interno do servidor" });
     }
 }
+
+export const listarTurma = async (request, response) => {
+    try {
+        const turmas = await turmaModel.findAll()
+
+        response.status(200).json(turmas)
+    } catch (error) {
+        return response.status(500).json({ message: "Erro interno do servidor" });
+    }
+}
