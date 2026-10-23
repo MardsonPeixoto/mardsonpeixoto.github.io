@@ -32,3 +32,21 @@ export const listarProfessor = async (request, response) => {
         await tratarErro(error, response)
     }
 }
+
+export const buscarProfessorID = async (request, response) => {
+    const { id } = request.params
+
+    try {
+        const professor = await professorModel.findByPk(id)
+
+        if(!professor){
+            return response.status(404).json({
+                message: "professor não encontrado"
+            })
+        }
+
+        response.status(200).json(professor)
+    } catch (error) {
+        await tratarErro(error, response);
+    }
+}
