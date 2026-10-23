@@ -1,7 +1,7 @@
 import { perfilAlunoModel } from "../model/perfilAlunoModel.js";
 import { tratarErro } from "../utils/erroHandler.js";
 
-export const cadastrarUsuario = async (request, response) => {
+export const cadastrarPerfil = async (request, response) => {
     const { nome, reflexao_pessoal, senha, verificarSenha, turma_id} = request.body
 
     if(!nome || !senha || !turma_id){
@@ -26,7 +26,17 @@ export const cadastrarUsuario = async (request, response) => {
 
         await perfilAlunoModel.create(dados)
 
-        response.status(201).json({message: "Usuário criado com sucesso"})
+        response.status(201).json({message: "Perfil criado com sucesso"})
+    } catch (error) {
+        await tratarErro(error, response)
+    }
+}
+
+export const listarPerfil = async (request, response) => {
+    try {
+        const perfil = await perfilAlunoModel.findAll()
+
+        response.status(200).json(perfil)
     } catch (error) {
         await tratarErro(error, response)
     }

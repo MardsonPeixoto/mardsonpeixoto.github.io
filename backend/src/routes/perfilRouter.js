@@ -1,10 +1,12 @@
 import { Router } from "express";
 import { 
-    cadastrarUsuario 
+    cadastrarPerfil, 
+    listarPerfil
 } from "../controllers/perfilController.js";
 
 const router = Router()
 
-router.post("/", cadastrarUsuario)
+router.post("/", cadastrarPerfil)
+router.get("/", listarPerfil)
 
 export default router
