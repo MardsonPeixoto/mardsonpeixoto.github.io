@@ -22,3 +22,13 @@ export const cadastrarProfessor = async (request, response) => {
         await tratarErro(error, response)
     }
 }
+
+export const listarProfessor = async (request, response) => {
+    try {
+        const professor = await professorModel.findAll()
+
+        response.status(200).json(professor)
+    } catch (error) {
+        await tratarErro(error, response)
+    }
+}
