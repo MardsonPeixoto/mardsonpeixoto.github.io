@@ -59,3 +59,23 @@ export const buscarPerfilID = async (request, response) => {
         await tratarErro(error, response)
     }
 }
+
+export const atualizarPerfil = async (request, response) => {
+    const { id } = request.params
+
+    try {
+        const perfil = await perfilAlunoModel.findByPk(id)
+
+        if (!perfil) {
+           return response.status(404).json({ 
+            message: "Perfil não encontrado!" 
+            });
+        }
+
+        await perfil.update(request.body)
+
+        response.status(200).json(perfil)
+    } catch (error) {
+        await tratarErro(error, response);
+    }
+}
