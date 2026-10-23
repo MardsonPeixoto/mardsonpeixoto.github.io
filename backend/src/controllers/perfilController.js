@@ -32,9 +32,27 @@ export const cadastrarPerfil = async (request, response) => {
     }
 }
 
-export const listarPerfil = async (request, response) => {
+export const buscarPerfil = async (request, response) => {
     try {
         const perfil = await perfilAlunoModel.findAll()
+
+        response.status(200).json(perfil)
+    } catch (error) {
+        await tratarErro(error, response)
+    }
+}
+
+export const buscarPerfilID = async (request, response) => {
+    const { id } = request.params
+
+    try {
+        const perfil = await perfilAlunoModel.findByPk(id)
+
+        if(!perfil){
+            return response.status(404).json({
+                message: "Turma não encontrada"
+            })
+        }
 
         response.status(200).json(perfil)
     } catch (error) {

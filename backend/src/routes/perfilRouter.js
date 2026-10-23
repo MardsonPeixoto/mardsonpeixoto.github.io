@@ -1,12 +1,14 @@
 import { Router } from "express";
 import { 
     cadastrarPerfil, 
-    listarPerfil
+    buscarPerfil,
+    buscarPerfilID
 } from "../controllers/perfilController.js";
 
 const router = Router()
 
 router.post("/", cadastrarPerfil)
-router.get("/", listarPerfil)
+router.get("/", buscarPerfil)
+router.get("/:id", buscarPerfilID)
 
 export default router
