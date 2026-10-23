@@ -58,12 +58,34 @@ export const atualizarProfessor = async (request, response) => {
         const professor = await professorModel.findByPk(id)
 
         if (!professor) {
-           return response.status(404).json({ message: "Professor não encontrado!" });
+            return response.status(404).json({
+                message: "Professor não encontrado!"
+            });
         }
 
         await professor.update(request.body)
 
         response.status(200).json(professor)
+    } catch (error) {
+        await tratarErro(error, response);
+    }
+}
+
+export const deletarProfessor = async (request, response) => {
+    const { id } = request.params
+
+    try {
+        const professor = await professorModel.findByPk(id)
+
+        if (!professor) {
+            return response.status(404).json({
+                message: "Professor não encontrado!" 
+            });
+        }
+
+        await professor.destroy()
+
+        response.status(204).send()
     } catch (error) {
         await tratarErro(error, response);
     }
