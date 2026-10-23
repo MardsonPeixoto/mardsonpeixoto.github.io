@@ -79,3 +79,23 @@ export const atualizarPerfil = async (request, response) => {
         await tratarErro(error, response);
     }
 }
+
+export const deletarPerfil = async (request, response) => {
+    const { id } = request.params
+
+    try {
+        const perfil = await perfilAlunoModel.findByPk(id)
+
+        if (!perfil) {
+           return response.status(404).json({ 
+            message: "Perfil não encontrado!" 
+            });
+        }
+
+        await perfil.destroy()
+
+        response.status(204).send() 
+    } catch (error) {
+        await tratarErro(error, response)
+    }
+}
